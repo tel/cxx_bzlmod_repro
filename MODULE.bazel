@@ -1,0 +1,12 @@
+bazel_dep(name = "rules_rust", version = "0.44.0")
+
+bazel_dep(name = "cxx.rs")
+git_override(
+    module_name = "cxx.rs",
+    commit = "462896c80629a51ddcdc72fa55af0bb4befbb675",
+    patches = [
+        "//repo_patches:add_rules_cc_to_cxx.patch",
+    ],
+    remote = "https://github.com/dtolnay/cxx.git",
+)
+
