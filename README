@@ -1,0 +1,18 @@
+- Note that in the `MODULE.bazel.lock` file, at paths similar the example below 
+  we see a referenced label like 
+  `@@[unknown repo '' requested from @@cxx.rs~]//third-party/bazel:BUILD.unicode-width-0.1.12.bazel`.
+
+
+  ```
+  "@@cxx.rs~//tools/bazel:extension.bzl%crate_repositories" 
+  -> "general" 
+  -> "generatedRepoSpecs" 
+  -> "vendor_unicode-with-0.1.12" 
+  -> "attributes"
+  -> "build_file"
+  ```
+
+- If you delete the `MODULE.bazel.lock` file and run 
+  `bazel build @cxx.rs//:codegen` it will recreate the lockfile with this 
+  anomaly and then fail
+- Attempting to run any build command when the lockfile is in this state will crash the Bazel server
